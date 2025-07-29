@@ -1,5 +1,6 @@
 package com.cloud_vendor_rest_api_with_mysql.rest_api.service.impl;
 
+import com.cloud_vendor_rest_api_with_mysql.rest_api.exception.CloudVendorNotFoundException;
 import com.cloud_vendor_rest_api_with_mysql.rest_api.model.CloudVendor;
 import com.cloud_vendor_rest_api_with_mysql.rest_api.repository.CloudVendorRepository;
 import com.cloud_vendor_rest_api_with_mysql.rest_api.service.CloudVendorService;
@@ -42,6 +43,8 @@ public class CloudVendorServiceImpl implements CloudVendorService {
     @Override
     public CloudVendor getCloudVendor(String cloudVendorId) {
         //If more business logic is required, it should be written here
+        if(cloudVendorRepository.findById(cloudVendorId).isEmpty())
+            throw new CloudVendorNotFoundException("Requested Cloud Vendor does not exist");
         return cloudVendorRepository.findById(cloudVendorId).get();
         //first findById() & then get() to get the value as this method is supposed to return the value of the object, retun the whole thing.
     }

@@ -3,7 +3,10 @@ package com.cloud_vendor_rest_api_with_mysql.rest_api.controller;
 
 
 import com.cloud_vendor_rest_api_with_mysql.rest_api.model.CloudVendor;
+import com.cloud_vendor_rest_api_with_mysql.rest_api.response.ResponseHandler;
 import com.cloud_vendor_rest_api_with_mysql.rest_api.service.CloudVendorService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +23,8 @@ public class CloudVendorController {
     }
 
     @GetMapping("{vendorId}")    //For SpringBoot to extract the value of vendorId to pass to this method
-    public CloudVendor getVendorDetails (@PathVariable("vendorId") String vendorId){     //@PathVariable is added to extract the vendorId from url and pass it to 'String vendorId'
-        return cloudVendorService.getCloudVendor(vendorId);
+    public ResponseEntity<Object> getVendorDetails (@PathVariable("vendorId") String vendorId){     //@PathVariable is added to extract the vendorId from url and pass it to 'String vendorId'
+       return ResponseHandler.responseBuilder("Requested CloudVendor details are ", HttpStatus.OK,cloudVendorService.getCloudVendor(vendorId) );
     }
 
     @GetMapping

@@ -23,7 +23,7 @@ public class CloudVendorServiceImpl implements CloudVendorService {
     public String createCloudVendor(CloudVendor cloudVendor) {
         //If more business logic is required, it should be written here
         cloudVendorRepository.save(cloudVendor);
-        return "Successfully created!";
+        return "Success";
     }
 
     @Override
@@ -48,6 +48,17 @@ public class CloudVendorServiceImpl implements CloudVendorService {
         return cloudVendorRepository.findById(cloudVendorId).get();
         //first findById() & then get() to get the value as this method is supposed to return the value of the object, retun the whole thing.
     }
+
+    @Override
+    public CloudVendor getCloudVendorByName(String cloudVendorName) {
+        //If more business logic is required, it should be written here
+        if(cloudVendorRepository.findByVendorName(cloudVendorName).isEmpty())
+            throw new CloudVendorNotFoundException("Requested Cloud Vendor does not exist");
+        return cloudVendorRepository.findByVendorName(cloudVendorName).get(0);
+        //first findByVendorName() & then get() to get the value as this method is supposed to return the value of the object, retun the whole thing.
+    }
+
+
 
     @Override
     public List<CloudVendor> getAllCloudVendors() {

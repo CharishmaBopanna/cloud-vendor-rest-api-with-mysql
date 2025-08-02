@@ -22,9 +22,14 @@ public class CloudVendorController {
         this.cloudVendorService = cloudVendorService;
     }
 
-    @GetMapping("{vendorId}")    //For SpringBoot to extract the value of vendorId to pass to this method
+    @GetMapping("/id/{vendorId}")    //For SpringBoot to extract the value of vendorId to pass to this method
     public ResponseEntity<Object> getVendorDetails (@PathVariable("vendorId") String vendorId){     //@PathVariable is added to extract the vendorId from url and pass it to 'String vendorId'
        return ResponseHandler.responseBuilder("Requested CloudVendor details are ", HttpStatus.OK,cloudVendorService.getCloudVendor(vendorId) );
+    }
+
+    @GetMapping("/name/{vendorName}")    //For SpringBoot to extract the value of vendorId to pass to this method
+    public ResponseEntity<Object> getVendorDetailsByName (@PathVariable("vendorName") String vendorName){     //@PathVariable is added to extract the vendorId from url and pass it to 'String vendorId'
+        return ResponseHandler.responseBuilder("Requested CloudVendor details are ", HttpStatus.OK,cloudVendorService.getCloudVendorByName(vendorName) );
     }
 
     @GetMapping
